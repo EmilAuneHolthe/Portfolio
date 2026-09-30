@@ -1,7 +1,92 @@
 @import "tailwindcss";
 
+:root {
+  color-scheme: light;
+  --page: #f7f6f2;
+  --surface: #eeede7;
+  --ink: #252b27;
+  --muted: #646a63;
+  --line: #d8dad1;
+  --accent: #a34028;
+  --accent-soft: #f0e3db;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #191e1b;
+  --surface: #232a25;
+  --ink: #efeee6;
+  --muted: #a5afa5;
+  --line: #3b453d;
+  --accent: #eca17e;
+  --accent-soft: #3b3028;
+}
+
+@theme inline {
+  --color-page: var(--page);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --font-sans: var(--font-manrope), Arial, sans-serif;
+  --font-mono: var(--font-plex-mono), monospace;
+}
+
 body {
-  background: #ffffff;
-  color: #171717;
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font-manrope), Arial, sans-serif;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--page);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 5px;
+}
+
+section[id] {
+  scroll-margin-top: 2rem;
+}
+
+.theme-icon-sun,
+[data-theme="dark"] .theme-icon-moon {
+  display: none;
+}
+
+[data-theme="dark"] .theme-icon-sun {
+  display: block;
+}
+
+@layer components {
+  .page-width {
+    @apply mx-auto w-full max-w-6xl px-6 sm:px-10 lg:px-12;
+  }
+
+  .eyebrow {
+    @apply font-mono text-[11px] leading-relaxed tracking-[0.12em] text-muted uppercase;
+  }
+
+  .text-link {
+    @apply inline-flex min-h-11 items-center gap-3 text-sm font-medium underline decoration-line underline-offset-8 hover:text-accent hover:decoration-accent;
+  }
+
+  .placeholder-note {
+    @apply text-sm leading-relaxed text-muted;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a,
+  button {
+    transition:
+      color 150ms ease,
+      border-color 150ms ease,
+      background-color 150ms ease;
+  }
 }
